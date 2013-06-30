@@ -43,7 +43,13 @@ public class JPAUtil {
                 if (transaction.isActive() ) {
                     transaction.rollback();
                 }
-                throw new RuntimeException(e);
+
+                if (e instanceof RuntimeException) {
+                    throw (RuntimeException) e;
+                }
+                else {
+                    throw new RuntimeException(e);
+                }
             }
             finally {
                 if (closeEM) {
